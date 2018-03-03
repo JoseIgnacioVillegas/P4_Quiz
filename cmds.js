@@ -153,14 +153,15 @@ exports.testCmd = (rl,id) => {
 			const quiz = model.getByIndex(id);
 			const pregunta = quiz.question;
 			rl.question(colorize(pregunta + '?', 'red'), answer =>{
-				const resp = (answer || "").trim()
-				if ( resp === quiz.answer){
-					console.log("Su respuesta es correcta.")
-					biglog('CORRECTO', 'green');
+				const resp = (answer || "").toLocaleLowerCase().trim()
+				
+				if ( resp === quiz.answer.toLocaleLowerCase()){
+					console.log("Su respuesta es:")
+					biglog('Correcta', 'green');
 					rl.prompt();
 				}else{
-					console.log("Su respuesta es incorrecta.")
-					biglog('INCORRECTO', 'red');
+					console.log("Su respuesta es:")
+					biglog('Incorrecta', 'red');
 					rl.prompt();
 				}
 			});
