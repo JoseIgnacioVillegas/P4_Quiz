@@ -155,9 +155,11 @@ exports.testCmd = (rl,id) => {
 			rl.question(colorize(pregunta + '?', 'red'), answer =>{
 				const resp = (answer || "").trim()
 				if ( resp === quiz.answer){
+					console.log("Su respuesta es correcta.")
 					biglog('CORRECTO', 'green');
 					rl.prompt();
 				}else{
+					console.log("Su respuesta es incorrecta.")
 					biglog('INCORRECTO', 'red');
 					rl.prompt();
 				}
