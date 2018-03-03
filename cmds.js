@@ -54,8 +54,6 @@ exports.showCmd = (rl,id) => {
 			errorlog(error.message);
 		}
 	}
-
-
     rl.prompt();
 };
 
@@ -194,8 +192,8 @@ exports.playCmd = rl => {
 
   	const playOne = ()=> {
 		if ( toBeResolved.length == 0){
-			console.log("No hay preguntas para responder.");
-			console.log("La puntuación obtenida es de: ");
+			console.log("No hay nada más que preguntar.");
+			console.log("Fin del examen. Aciertos: ");
 			biglog(score, 'red');
 			rl.prompt();
 		}else{
@@ -208,14 +206,12 @@ exports.playCmd = rl => {
 				const resp = (answer || "").trim()
 				if ( resp === quiz.answer){
 					score++;
-					biglog('CORRECTO', 'green');
-					console.log("Tu puntuación es: ");
-					biglog(score,'yellow');
+					console.log("CORRECTO - Lleva "+ score + "aciertos.") 
 					toBeResolved.splice(rand,1);
 					playOne();
 				}else{
-					biglog('INCORRECTO', 'red');
-					console.log("Se acabó el juego, su puntuación ha sido: ");
+					console.log("INCORRECTO");
+					console.log("Fin del examen. Aciertos: ");
 					biglog(score,'yellow');
 					rl.prompt();
 				}
