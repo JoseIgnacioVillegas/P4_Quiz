@@ -146,14 +146,14 @@ exports.editCmd = (rl,id) => {
  */
 exports.testCmd = (rl,id) => {
 	if (typeof id === "undefined") {
-		errorlog('Falta el parámetro id.');
+		errorlog("Falta el parámetro id.");
 		rl.prompt();
 	}else{
 		try{
 			const quiz = model.getByIndex(id);
 			const pregunta = quiz.question;
 			rl.question(colorize(pregunta + '?', 'red'), answer =>{
-				const resp = (answer || "").toLocaleLowerCase().trim()
+				const resp = answer.toLocaleLowerCase().trim()
 				
 				if ( resp === quiz.answer.toLocaleLowerCase()){
 					console.log("Su respuesta es:")
