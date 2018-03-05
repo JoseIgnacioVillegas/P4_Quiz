@@ -174,11 +174,12 @@ exports.testCmd = (rl,id) => {
 				const resp = answer.toLocaleLowerCase().trim();
 				
 				if ( resp === quiz.answer.toLocaleLowerCase()){
-					console.log("Su respuesta es:");
+					log("La respues es correcta.", 'green');
+					//console.log("Su respuesta es:");
 					biglog('Correcta', 'green');
 					rl.prompt();
 				}else{
-					console.log("Su respuesta es:");
+					log("La respues es incorrecta.", 'green');
 					biglog('Incorrecta', 'red');
 					rl.prompt();
 				}
