@@ -149,6 +149,8 @@ exports.testCmd = (rl,id) => {
 		errorlog("Falta el parámetro id.");
 		rl.prompt();
 	}else{
+
+		/**
 		try{
 			const quiz = model.getByIndex(id);
 			rl.question(` ${quiz.question}?`, answer =>{
@@ -162,25 +164,26 @@ exports.testCmd = (rl,id) => {
 					rl.prompt();
 				}
 			});
+			*/
 
-		/**
+		
 		try{
 			const quiz = model.getByIndex(id);
 			const pregunta = quiz.question;
 			rl.question(colorize(pregunta + '?', 'red'), answer =>{
-				const resp = answer.toLocaleLowerCase().trim()
+				const resp = answer.toLocaleLowerCase().trim();
 				
 				if ( resp === quiz.answer.toLocaleLowerCase()){
-					console.log("Su respuesta es:")
+					console.log("Su respuesta es:");
 					biglog('Correcta', 'green');
 					rl.prompt();
 				}else{
-					console.log("Su respuesta es:")
+					console.log("Su respuesta es:");
 					biglog('Incorrecta', 'red');
 					rl.prompt();
 				}
 			});
-*/
+
 		}catch(error){
 			errorlog(error.message);
 			rl.prompt();
