@@ -151,6 +151,21 @@ exports.testCmd = (rl,id) => {
 	}else{
 		try{
 			const quiz = model.getByIndex(id);
+			rl.question(` ${quiz.question}?`, answer =>{
+				if ( answer.trim() === quiz.answer){
+					console.log("Su respuesta es:")
+					biglog('Correcta', 'green');
+					rl.prompt();
+				}else{
+					console.log("Su respuesta es:")
+					biglog('Incorrecta', 'red');
+					rl.prompt();
+				}
+			});
+
+		/**
+		try{
+			const quiz = model.getByIndex(id);
 			const pregunta = quiz.question;
 			rl.question(colorize(pregunta + '?', 'red'), answer =>{
 				const resp = answer.toLocaleLowerCase().trim()
@@ -165,7 +180,7 @@ exports.testCmd = (rl,id) => {
 					rl.prompt();
 				}
 			});
-
+*/
 		}catch(error){
 			errorlog(error.message);
 			rl.prompt();
