@@ -153,11 +153,11 @@ exports.testCmd = (rl,id) => {
 			const quiz = model.getByIndex(id);
 			rl.question(` ${quiz.question}?`, answer =>{
 				if ( answer.trim() === quiz.answer){
-					console.log("Su respuesta es:")
+					log("La respues es correcta.", 'green');
 					biglog('Correcta', 'green');
 					rl.prompt();
 				}else{
-					console.log("Su respuesta es:")
+					console.log("Su respuesta es:");
 					biglog('Incorrecta', 'red');
 					rl.prompt();
 				}
