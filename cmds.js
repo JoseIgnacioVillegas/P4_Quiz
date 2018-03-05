@@ -148,25 +148,7 @@ exports.testCmd = (rl,id) => {
 	if (typeof id === "undefined") {
 		errorlog("Falta el parámetro id.");
 		rl.prompt();
-	}else{
-
-		/**
-		try{
-			const quiz = model.getByIndex(id);
-			rl.question(` ${quiz.question}?`, answer =>{
-				if ( answer.trim() === quiz.answer){
-					log("La respues es correcta.", 'green');
-					biglog('Correcta', 'green');
-					rl.prompt();
-				}else{
-					console.log("Su respuesta es:");
-					biglog('Incorrecta', 'red');
-					rl.prompt();
-				}
-			});
-			*/
-
-		
+	}else{	
 		try{
 			const quiz = model.getByIndex(id);
 			const pregunta = quiz.question;
@@ -175,7 +157,6 @@ exports.testCmd = (rl,id) => {
 				
 				if ( resp === quiz.answer.toLocaleLowerCase()){
 					log("La respues es correcta.", 'green');
-					//console.log("Su respuesta es:");
 					biglog('Correcta', 'green');
 					rl.prompt();
 				}else{
@@ -253,6 +234,7 @@ exports.playCmd = rl => {
 exports.creditsCmd = rl => {
     log('Autores de la práctica: ');
     log('   Jose Ignacio Villegas Villegas');
+    log('   Raul Luengo Ximenez-Cruz');
     rl.prompt();
 };
 
