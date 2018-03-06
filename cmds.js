@@ -292,12 +292,12 @@ exports.testCmd = (rl,id) => {
  * @param rl	Objeto readline usado para implementar el CLI
  */
 
- /**
+
 exports.playCmd = rl => {
 	let score = 0;
 	let toBeResolved = []; // array que guarda ids de todas las preguntas que existen
 
-	var cuenta = model.count();
+	var cuenta = models.count();
 	while (cuenta>0) {
     	toBeResolved[cuenta-1] = cuenta-1;
     	cuenta--; 
@@ -335,7 +335,6 @@ exports.playCmd = rl => {
     playOne();
 };
 
-*/
 
 
 
