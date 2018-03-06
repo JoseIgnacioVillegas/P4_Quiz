@@ -291,6 +291,8 @@ exports.testCmd = (rl,id) => {
  * Se gana si se contesta a todos satisfactoriamente.
  * @param rl	Objeto readline usado para implementar el CLI
  */
+
+ /**
 exports.playCmd = rl => {
 	let score = 0;
 	let toBeResolved = []; // array que guarda ids de todas las preguntas que existen
@@ -332,6 +334,9 @@ exports.playCmd = rl => {
     }
     playOne();
 };
+
+*/
+
 
 
 
