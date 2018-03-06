@@ -285,6 +285,8 @@ exports.testCmd = (rl,id) => {
 
 
 
+
+
 //SIN HACER
 /**
  * Pregunta todos los quizzes existentes en el modelo en orden aleatorio.
@@ -295,14 +297,55 @@ exports.testCmd = (rl,id) => {
 
 exports.playCmd = rl => {
 	let score = 0;
-	let toBeResolved = []; // array que guarda ids de todas las preguntas que existen
+	var toBeResolved = []; // array que guarda ids de todas las preguntas que existen
 
-	var cuenta = models.count();
+	var cuenta = 0;
+
+
+	//console.log(models.quiz.findAll());
+
+
+
+
+
+
+
+	models.quiz.findAll()
+    .each(quiz => {
+    	//console.log()
+    	//console.log("Antes: " + cuenta);
+		toBeResolved[cuenta] = cuenta;
+		cuenta++;
+		//console.log("Después: " +cuenta);
+		//console.log(toBeResolved);
+		playOne();
+    });
+
+
+    /*
+    .catch(error => {
+    	errorlog(error.message);
+    });
+    console.log(toBeResolved);
+*/
+
+
+
+
+
+
+
+/*
+
+	let todos = [models.quiz.findAll()] ; 
+	console.log(todos);
+	var cuenta = todos.length;
+	console.log(cuenta);
 	while (cuenta>0) {
     	toBeResolved[cuenta-1] = cuenta-1;
     	cuenta--; 
   	}
-
+*/
 
   	const playOne = ()=> {
 		if ( toBeResolved.length == 0){
@@ -313,26 +356,37 @@ exports.playCmd = rl => {
 		}else{
 			let rand = Math.trunc(Math.random()*toBeResolved.length);
 			let id = toBeResolved[rand];
-			let quiz = model.getByIndex(id);
-			let pregunta = quiz.question;
-			
-			rl.question(colorize(pregunta + '?', 'red'), answer =>{
-				const resp = (answer || "").trim()
-				if ( resp === quiz.answer){
-					score++;
-					console.log("CORRECTO - Lleva "+ score + "aciertos.") 
-					toBeResolved.splice(rand,1);
-					playOne();
-				}else{
-					console.log("INCORRECTO");
-					console.log("Fin del examen. Aciertos: ");
-					biglog(score,'yellow');
-					rl.prompt();
-				}
+			validateId(id)
+			.then(id => models.quiz.findById(id))
+			.then(quiz => {
+				pregunta = quiz.question;
+				makeQuestion(rl, pregunta + '?')
+				.then(a => {
+					if ( a.toLocaleLowerCase() === quiz.answer.toLocaleLowerCase()){
+						score++;
+						console.log("CORRECTO - Lleva "+ score + "aciertos.") 
+						toBeResolved.splice(rand,1);
+						playOne();
+					}else{
+						console.log("INCORRECTO");
+						console.log("Fin del examen. Aciertos: ");
+						biglog(score,'yellow');
+						rl.prompt();
+					}
+				});
+			})
+			.catch(error => {
+				errorlog(error.message);
+				console.log("eyow eyow")
+			})
+			.then(() => {
+				rl.prompt();
 			});
 		}
     }
-    playOne();
+
+
+    
 };
 
 
