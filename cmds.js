@@ -296,6 +296,72 @@ exports.testCmd = (rl,id) => {
 
 
 exports.playCmd = rl => {
+	var cuenta = 0;
+	var toBeResolved = [];
+	var score = 0;
+	models.quiz.findAll()
+    .each(quiz => {
+		toBeResolved[cuenta] = cuenta;
+		cuenta = cuenta +1 ;
+    })
+    .then(() => {
+	    const playOne = ()=> {
+			if ( toBeResolved.length == 0){
+				console.log("No hay nada más que preguntar.");
+				console.log("Fin del examen. Aciertos: ");
+				biglog(score, 'red');
+				rl.prompt();
+			}else{
+				let rand = Math.trunc(Math.random()*toBeResolved.length);
+				let id = toBeResolved[rand];
+				validateId(id)
+				.then(id => models.quiz.findById(id))
+				.then(quiz => {
+					pregunta = quiz.question;
+					makeQuestion(rl, pregunta + '?')
+					.then(a => {
+						if ( a.toLocaleLowerCase() === quiz.answer.toLocaleLowerCase()){
+							score++;
+							console.log("CORRECTO - Lleva "+ score + "aciertos.") 
+							toBeResolved.splice(rand,1);
+							playOne();
+						}else{
+							console.log("INCORRECTO");
+							console.log("Fin del examen. Aciertos: ");
+							biglog(score,'yellow');
+							rl.prompt();
+						}
+					});
+				})
+				.catch(error => {
+					errorlog(error.message);
+				})
+				.then(() => {
+					rl.prompt();
+				});
+			}
+	    }
+	    playOne();
+    }).catch(error => {
+    	errorlog(error.message);
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+
 	let score = 0;
 	var toBeResolved = []; // array que guarda ids de todas las preguntas que existen
 
@@ -303,24 +369,17 @@ exports.playCmd = rl => {
 
 
 	//console.log(models.quiz.findAll());
-
-
-
-
-
-
-
-	models.quiz.findAll()
-    .each(quiz => {
-    	//console.log()
+	//console.log(models.quiz.findAll().length);
+	models.quiz.findAll().each(quiz => {
     	//console.log("Antes: " + cuenta);
 		toBeResolved[cuenta] = cuenta;
 		cuenta++;
 		//console.log("Después: " +cuenta);
 		//console.log(toBeResolved);
-		playOne();
+		//playOne();
     });
-
+    console.log(toBeResolved);
+*/
 
     /*
     .catch(error => {
@@ -347,43 +406,7 @@ exports.playCmd = rl => {
   	}
 */
 
-  	const playOne = ()=> {
-		if ( toBeResolved.length == 0){
-			console.log("No hay nada más que preguntar.");
-			console.log("Fin del examen. Aciertos: ");
-			biglog(score, 'red');
-			rl.prompt();
-		}else{
-			let rand = Math.trunc(Math.random()*toBeResolved.length);
-			let id = toBeResolved[rand];
-			validateId(id)
-			.then(id => models.quiz.findById(id))
-			.then(quiz => {
-				pregunta = quiz.question;
-				makeQuestion(rl, pregunta + '?')
-				.then(a => {
-					if ( a.toLocaleLowerCase() === quiz.answer.toLocaleLowerCase()){
-						score++;
-						console.log("CORRECTO - Lleva "+ score + "aciertos.") 
-						toBeResolved.splice(rand,1);
-						playOne();
-					}else{
-						console.log("INCORRECTO");
-						console.log("Fin del examen. Aciertos: ");
-						biglog(score,'yellow');
-						rl.prompt();
-					}
-				});
-			})
-			.catch(error => {
-				errorlog(error.message);
-				console.log("eyow eyow")
-			})
-			.then(() => {
-				rl.prompt();
-			});
-		}
-    }
+  	
 
 
     
