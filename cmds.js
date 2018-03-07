@@ -344,7 +344,9 @@ exports.playCmd = rl => {
 	    playOne();
     }).catch(error => {
     	errorlog(error.message);
-    });
+    }).then(() => {
+		rl.prompt();
+	});
 
 
 
