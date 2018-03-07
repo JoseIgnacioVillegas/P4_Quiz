@@ -296,12 +296,12 @@ exports.testCmd = (rl,id) => {
 
 
 exports.playCmd = rl => {
-	var cuenta = 0;
+	var cuenta = 1;
 	var toBeResolved = [];
 	var score = 0;
 	models.quiz.findAll()
     .each(quiz => {
-		toBeResolved[cuenta] = cuenta;
+		toBeResolved[cuenta-1] = cuenta;
 		cuenta = cuenta +1 ;
     })
     .then(() => {
@@ -320,6 +320,7 @@ exports.playCmd = rl => {
 					pregunta = quiz.question;
 					makeQuestion(rl, pregunta + '?')
 					.then(a => {
+						console.log(a);
 						if ( a.toLocaleLowerCase() === quiz.answer.toLocaleLowerCase()){
 							score++;
 							console.log("CORRECTO - Lleva "+ score + "aciertos.") 
@@ -342,13 +343,15 @@ exports.playCmd = rl => {
 			}
 	    }
 	    playOne();
-    }).catch(error => {
+    });
+/*
+    .catch(error => {
     	errorlog(error.message);
     }).then(() => {
 		rl.prompt();
 	});
 
-
+*/
 
 
 
