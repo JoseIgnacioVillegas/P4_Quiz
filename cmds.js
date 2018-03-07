@@ -216,7 +216,7 @@ exports.editCmd = (rl,id) => {
 
 
 
-// SIN HACER
+
 /**
  * Prueba un quiz, es decir, hace una pregunta del modelo a la que debemos contestar.
  *
@@ -247,47 +247,9 @@ exports.testCmd = (rl,id) => {
 	.then(() => {
 		rl.prompt();
 	});
-
-/*
-
-
-	if (typeof id === "undefined") {
-		errorlog("Falta el parámetro id.");
-		rl.prompt();
-	}else{	
-		try{
-			const quiz = model.getByIndex(id);
-			const pregunta = quiz.question;
-			rl.question(colorize(pregunta + '?', 'red'), answer =>{
-				const resp = answer.toLocaleLowerCase().trim();
-				
-				if ( resp === quiz.answer.toLocaleLowerCase()){
-					log("La respues es correcta.", 'green');
-					biglog('Correcta', 'green');
-					rl.prompt();
-				}else{
-					log("La respues es incorrecta.", 'green');
-					biglog('Incorrecta', 'red');
-					rl.prompt();
-				}
-			});
-
-		}catch(error){
-			errorlog(error.message);
-			rl.prompt();
-		}
-	}
-	*/
-
-
 };
 
 
-
-
-
-
-//SIN HACER
 /**
  * Pregunta todos los quizzes existentes en el modelo en orden aleatorio.
  * Se gana si se contesta a todos satisfactoriamente.
@@ -343,78 +305,7 @@ exports.playCmd = rl => {
 			}
 	    }
 	    playOne();
-    });
-/*
-    .catch(error => {
-    	errorlog(error.message);
-    }).then(() => {
-		rl.prompt();
-	});
-
-*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-
-	let score = 0;
-	var toBeResolved = []; // array que guarda ids de todas las preguntas que existen
-
-	var cuenta = 0;
-
-
-	//console.log(models.quiz.findAll());
-	//console.log(models.quiz.findAll().length);
-	models.quiz.findAll().each(quiz => {
-    	//console.log("Antes: " + cuenta);
-		toBeResolved[cuenta] = cuenta;
-		cuenta++;
-		//console.log("Después: " +cuenta);
-		//console.log(toBeResolved);
-		//playOne();
-    });
-    console.log(toBeResolved);
-*/
-
-    /*
-    .catch(error => {
-    	errorlog(error.message);
-    });
-    console.log(toBeResolved);
-*/
-
-
-
-
-
-
-
-/*
-
-	let todos = [models.quiz.findAll()] ; 
-	console.log(todos);
-	var cuenta = todos.length;
-	console.log(cuenta);
-	while (cuenta>0) {
-    	toBeResolved[cuenta-1] = cuenta-1;
-    	cuenta--; 
-  	}
-*/
-
-  	
-
-
-    
+    });    
 };
 
 
