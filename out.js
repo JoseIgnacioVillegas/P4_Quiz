@@ -12,7 +12,7 @@ const colorize = (msg, color) => {
     if (typeof color !== "undefined") {
         msg = chalk[color].bold(msg);
     }
-    return msg;
+    return msg ;
 };
 
 /**
@@ -22,8 +22,9 @@ const colorize = (msg, color) => {
 * @param color  Color del texto.
 */
 
-const log = (msg, color) => {
-    console.log(colorize(msg, color));
+const log = (msg, socket, color) => {
+	mens = msg + "\n";
+    socket.write(colorize(mens, color));
 };
 
 /**
@@ -32,8 +33,8 @@ const log = (msg, color) => {
 * @param msg    Texto a escribir.
 * @param color  Color del texto.
 */
-const biglog = (msg, color) => {
-    log(figlet.textSync(msg,{horizontalLayout: 'full'}), color);
+const biglog = (msg, socket, color) => {
+    log(figlet.textSync(msg,{horizontalLayout: 'full'}),socket, color);
 };
 
 /**
@@ -41,8 +42,8 @@ const biglog = (msg, color) => {
 *
 * @param emsg   Texto del mensaje de eror.
 */
-const errorlog = (emsg) => {
-    console.log(`${colorize("Error", "red")}: ${colorize(colorize(emsg, "red"), "bgYellowBright")}`);
+const errorlog = (emsg, socket) => {
+    socket.write(`${colorize("Error", "red")}: ${colorize(colorize(emsg, "red"), "bgYellowBright")}\n`);
 };
 
 exports = module.exports = {
